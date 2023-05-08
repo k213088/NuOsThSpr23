@@ -22,7 +22,7 @@ void push(struct queue *q1, int num){
     {
       if(q1->itemCount == 0)
       {
-        q1->data = (int) calloc(num_process, sizeof(int));
+        q1->data = (int*) calloc(num_process, sizeof(int));
         q1->front = 0;
         q1->rear = -1;
       }
