@@ -9,6 +9,15 @@
 int i=0, j=0, ind=0, numProcess=0, numResources=0;
 int **alloc, **max, **need, *avail, *safeSequecne;
 
+// Functions
+void Data(void);
+void display_data(void);
+void calculate_need(void);
+bool check(int);
+bool check_safe_sequence(int);
+void change_available(int);
+void start_Algorithm(void);
+
 // First we need queue and stack to push process in wait queue or ready queue
 struct queue{
   int front;
@@ -225,7 +234,64 @@ void change_available(int k){
 
 	printf("]\n");
 }
+
+void start_algoritm()
+{
+	int k=0;
+	int verify = 0;	
+	while(1)
+	{
+		for(i=0; i<num_process; i++)
+		{
+			verify = 1;
+			int temp = pop(&waiting_queue);
+			if(check_safe_sequence(temp))
+			{
+				continue;
+			}
+			if(check(temp))
+			{
+				verify = 0;
+				printf("P%d ",temp+1);
+				printf("Need < word!");
+				safe_sequence[ind] = temp+1;
+				ind++;
+				change_available(temp);
+				push(&ready_queue,temp);
+			}
+			else
+			{
+				push(&waiting_queue,temp);
+				printf("P%d- ",temp+1);
+				printf("Need > Word!\n");
+			}
+		}
+		if(verify==1)
+		{
+			break;
+		}
+	}
+	
+	for(i=0;i<num_process;i++)	{
+		
+		if (safe_sequence[i] == 0)	{
+			printf("Safe sequence not found because one or more process is not getting the required resources!\n");
+			exit(0);
+		}
+	}
+	
+	printf("\n\n\n");
+	for(i=0;i<num_process;i++)
+	{
+		printf("Process %d is ready to execute: \n",pop(&ready_queue)+1);
+		sleep(1);
+	}
+	printf("\n");
+}
 void main{ // main will just call the function so no return type
-  
-  
+  	Data();
+	display_data();
+	calculate_need();
+	display_data();
+	start_Algorithm();
 }
