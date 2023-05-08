@@ -169,6 +169,62 @@ void display_data(){
 	}
 }
 
+
+void calculate_need()
+{
+	for(i=0; i<num_process; i++)
+	{
+		for(j=0; j<num_process; j++)
+		{
+			if((max[i][j]-alloc[i][j])<0)
+			{
+				printf("Maximum value has bad input!");
+				exit(0);
+			}
+			else
+			{
+				need[i][j] = max[i][j]-alloc[i][j];
+			}
+		}	
+	}
+}
+
+
+bool check(int k)
+{
+	for(j=0;j<num_resources;j++){
+		if(need[k][j]>avail[j])
+		{
+			return false;
+		}		
+	}
+	return true;
+}
+
+bool check_safe_sequence(int k){
+	
+	for(j=0;j<num_process;j++){
+					
+		if(k == safe_sequence[j]-1)
+			return true;
+	}
+	return false;
+}
+
+
+void change_available(int k){
+	
+	printf("\nAvailable: [ ");
+
+	for(j=0;j<num_resources;j++){
+		
+		avail[j]=avail[j]+alloc[k][j];
+		printf("%d ", avail[j]);
+
+	}
+
+	printf("]\n");
+}
 void main{ // main will just call the function so no return type
   
   
