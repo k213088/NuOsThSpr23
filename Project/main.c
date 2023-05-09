@@ -6,8 +6,8 @@
 // Bankers algorithm in Operating System is used to avoid deadlock and for resource allocation safely to each process in the system.
 
 //  Some global variables
-int i=0, j=0, ind=0, numProcess=0, numResources=0;
-int **alloc, **max, **need, *avail, *safeSequecne;
+int i=0, j=0, ind=0, num_process=0, num_resources=0;
+int **alloc, **max, **need, *avail, *safe_sequence;
 
 // Functions
 void Data(void);
@@ -23,8 +23,8 @@ struct queue{
   int front;
   int rear;
   int *data;
-  int itemcount;
-}waiting_queue,reay_queue
+  int itemCount;
+}waiting_queue,ready_queue;
 
 void push(struct queue *q1, int num){
     if(q1->itemCount != num_process)
@@ -37,7 +37,7 @@ void push(struct queue *q1, int num){
       }
       q1->rear++;
       q1->data[q1->rear] = num;
-      q1->itemcount++;
+      q1->itemCount++;
     }
 }
 
@@ -288,7 +288,7 @@ void start_algoritm()
 	}
 	printf("\n");
 }
-void main{ // main will just call the function so no return type
+void main(){ // main will just call the function so no return type
   	Data();
 	display_data();
 	calculate_need();
