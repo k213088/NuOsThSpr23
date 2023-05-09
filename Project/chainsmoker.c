@@ -43,8 +43,40 @@ void* smokerM()
   }
 }
 
+void* agentT()
+{
+  while(1)
+  {
+    sem_wait(&agent);
+    printf("\n\n--> Agent puts paper and matches on the table \n");
+    sem_post(&pusher_p);
+    sem_post(&pusher_m);
+  }
+}
 
 
+void* agentP()
+{
+  while(1)
+  {
+    sem_wait(&agent);
+    printf("\n\n--> Agent puts tobacco and matches on the table \n");
+    sem_post(&pusher_t);
+    sem_post(&pusher_m);
+  }
+}
+
+
+void* agentM()
+{
+  while(1)
+  {
+    sem_wait(&agent);
+    printf("\n\n--> Agent puts tobacco and paper on the table \n");
+    sem_post(&pusher_t);
+    sem_post(&pusher_p);
+  }
+}
 
 void main()
 {
